@@ -1,0 +1,25 @@
+# Django-specific files
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+media/ # If you are storing user-uploaded media files locally
+
+# Virtual Environment
+.env
+venv/
+env/
+
+# IDE-specific files (e.g., PyCharm)
+.idea/
+
+# Operating System specific files
+.DS_Store
+Thumbs.db
+
+# Other common ignored files
+.coverage
+.tox/
+.eggs/

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% comment %} <title>{{ page_title }}</title> {% endcomment %}
+        <title>List de impressoras - Lexmark</title>
+    </head>
+    <body>
+        <h1>Status impressoras - Lexmark</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>IP</th>
+                    <th>Status</th>
+                    <th>Páginas Impressas</th>
+                    <th>Toner (%)</th>
+                    <th>Unidade de Imagem</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for printer in printers %}
+                <tr>
+                    <td>{{ printer.ip }}</td>
+                    <td>{{ printer.status }}</td>
+                    <td>{{ printer.page_printer }}</td>
+                    <td>{{ printer.toner_printer }}</td>
+                    <td>{{ printer.unit_printer }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </body>
+</html>
