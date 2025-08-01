@@ -1,0 +1,10 @@
+APScheduler==3.11.0
+asgiref==3.9.1
+asyncio==3.4.3
+Django==5.2.4
+djangorestframework==3.16.0
+easysnmp==0.2.6
+pyasn1==0.6.1
+pysnmp==7.1.21
+sqlparse==0.5.3
+tzlocal==5.3.1
