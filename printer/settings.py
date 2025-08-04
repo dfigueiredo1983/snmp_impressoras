@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
+    # cors
+    'corsheaders',
     # my apps
     'api',
 ]
@@ -52,6 +54,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # cors
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "https://www.example.com",
 ]
 
 ROOT_URLCONF = 'printer.urls'

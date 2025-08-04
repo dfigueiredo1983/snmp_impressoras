@@ -7,7 +7,7 @@ class Printer(models.Model):
     model = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.ip} - {self.status}'
+        return f'{self.ip} - {self.location}'
 
 class PrinterStatus(models.Model):
     printer = models.ForeignKey(Printer, on_delete=models.CASCADE, related_name='statuses')
