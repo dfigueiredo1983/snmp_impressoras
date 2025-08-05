@@ -27,29 +27,24 @@ const PrinterChart = ({location, model, ip, statuses }) => {
 
     const labels = statuses.map((s, index) => `#${index + 1}`);
 
-    const pagesData = {
+    const chartData = {
         labels,
         datasets: [
             {
-                label: `Setor: ${location} - Modelo: ${model} - IP: ${ip}`,
+                label: 'Páginas impressas',
                 data: statuses.map((s) => s.page_printer),
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.3,
+                yAxisID: 'y',
             },
-        ],
-    };
-
-    const tonerData = {
-        labels,
-        datasets: [
             {
-                // `` - usado quando eu quero passar uma variável
-                label: `Nível de toner (%)`,
+                label: 'Nível de toner (%)',
                 data: statuses.map((s) => s.toner_printer),
                 fill: false,
                 borderColor: 'rgb(255, 99, 132)',
                 tension: 0.3,
+                yAxisID: 'y1',
             },
         ],
     };
@@ -63,38 +58,45 @@ const PrinterChart = ({location, model, ip, statuses }) => {
         },
         scales: {
             y: {
-                beginAtZero: true,
+                type: 'linear',
+                display: true,
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Páginas impressas',
+                }
             },
-            // y: {
-            //     beginAtZero: false,
-            //     title: {
-            //         display: true,
-            //         text: 'Páginas Impressas',
-            //     },
-            // },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                grid: {
+                    drawOnChartArea: false,
+                },
+                title: {
+                    display: true,
+                    text: 'Nível de toner (%)',
+                },
+                min: 0,
+                max: 100,
+            
+            },
         },
     };
 
     const lastToner = statuses?.[statuses.length - 1]?.toner_printer;
 
     return (
-        <div style={{ marginBottom: '2rem' }}>
+        <div style={{ maxWidth: '600px', marginBottom: '2rem' }}>
+        {/* <div style={{ width: '100%', marginBottom: '2rem' }}> */}
             <h3>
                 { location ?? 'Local desconhecido' } - { model ?? 'Modelo desconhecido' } ({ip})
             </h3>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap:'2rem' }}>
-                <div style={{ flex: 1, minWidth: 300}}>
-                    <Line data={pagesData} options={options} />
-                </div>
+            <Line data={chartData} options={options} />
 
-                <div>
-                    <Line data={tonerData} options={options} />
-                </div>0
+            <p><strong>Nível atual de toner: </strong>{lastToner} (%)</p>
 
-                <p><strong>Nível atual de toner: </strong>{lastToner} (%)</p>
-
-            </div>
         </div>
     );
 };

@@ -21,7 +21,7 @@ export default function BuscarDados() {
                 }
                 const result = await response.json();
                 
-                console.log('Result: ', result);
+                // console.log('Result: ', result);
                 setPrinters(result);
             } catch (err) {
                 // console.log('Erro no fecth');
@@ -39,7 +39,8 @@ export default function BuscarDados() {
     // const model = printers?.[printers.length - 1]?.model;
 
     return (
-        <div>
+        <div style={{ width: '100%'}}>
+        {/* <div style={{ width: '100%', border: 'none'}}> */}
             <h1>Gráficos por Impressoras</h1>
             {loading && <p>Carregando impressoras...</p>}
             {error && <p style={{ color: 'red'}}>Error: {error}</p>}
