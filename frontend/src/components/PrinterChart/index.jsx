@@ -25,14 +25,30 @@ const PrinterChart = ({location, model, ip, statuses }) => {
     // console.log(ip)
     // console.log(statuses)
 
-    const chartData = {
-        labels: statuses.map((s, index) => `#${index + 1}`),
+    const labels = statuses.map((s, index) => `#${index + 1}`);
+
+    const pagesData = {
+        labels,
         datasets: [
             {
                 label: `Setor: ${location} - Modelo: ${model} - IP: ${ip}`,
                 data: statuses.map((s) => s.page_printer),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192',
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.3,
+            },
+        ],
+    };
+
+    const tonerData = {
+        labels,
+        datasets: [
+            {
+                // `` - usado quando eu quero passar uma variável
+                label: `Nível de toner (%)`,
+                data: statuses.map((s) => s.toner_printer),
+                fill: false,
+                borderColor: 'rgb(255, 99, 132)',
                 tension: 0.3,
             },
         ],
@@ -47,28 +63,38 @@ const PrinterChart = ({location, model, ip, statuses }) => {
         },
         scales: {
             y: {
-                beginAtZero: false,
-                title: {
-                    display: true,
-                    text: 'Páginas Impressas',
-                },
+                beginAtZero: true,
             },
+            // y: {
+            //     beginAtZero: false,
+            //     title: {
+            //         display: true,
+            //         text: 'Páginas Impressas',
+            //     },
+            // },
         },
     };
 
     const lastToner = statuses?.[statuses.length - 1]?.toner_printer;
-    // const location = statuses?.[statuses.length - 1]?.toner_printer;
-    // console.log('Nível de toner: ', lastToner);
-
-    console.log(location)
 
     return (
-        <div style={{ maxWidth: '600px', marginBottom: '2rem' }}>
-            <Line data={chartData} options={options}/>
-            <p>
-                <strong>Nível atual de toner: </strong>
-                {lastToner ?? 'N/A'}%
-           </p>
+        <div style={{ marginBottom: '2rem' }}>
+            <h3>
+                { location ?? 'Local desconhecido' } - { model ?? 'Modelo desconhecido' } ({ip})
+            </h3>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap:'2rem' }}>
+                <div style={{ flex: 1, minWidth: 300}}>
+                    <Line data={pagesData} options={options} />
+                </div>
+
+                <div>
+                    <Line data={tonerData} options={options} />
+                </div>0
+
+                <p><strong>Nível atual de toner: </strong>{lastToner} (%)</p>
+
+            </div>
         </div>
     );
 };
