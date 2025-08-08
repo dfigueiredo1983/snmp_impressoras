@@ -20,13 +20,7 @@ ChartJS.register(
 );
 
 const PrinterChart = ({location, model, ip, statuses }) => {
-
-    // console.log('PrinterChart')
-    // console.log(ip)
-    // console.log(statuses)
-
     const labels = statuses.map((s, index) => `#${index + 1}`);
-
     const chartData = {
         labels,
         datasets: [
@@ -79,7 +73,6 @@ const PrinterChart = ({location, model, ip, statuses }) => {
                 },
                 min: 0,
                 max: 100,
-            
             },
         },
     };
@@ -87,16 +80,19 @@ const PrinterChart = ({location, model, ip, statuses }) => {
     const lastToner = statuses?.[statuses.length - 1]?.toner_printer;
 
     return (
-        <div style={{ maxWidth: '600px', marginBottom: '2rem' }}>
+        <div style={{ 
+            // width: '500px',
+            width: 'auto',
+            marginBottom: '2rem', 
+            // border: "1px solid black",
+            }}
+        >
         {/* <div style={{ width: '100%', marginBottom: '2rem' }}> */}
             <h3>
                 { location ?? 'Local desconhecido' } - { model ?? 'Modelo desconhecido' } ({ip})
             </h3>
-
             <Line data={chartData} options={options} />
-
             <p><strong>Nível atual de toner: </strong>{lastToner} (%)</p>
-
         </div>
     );
 };
