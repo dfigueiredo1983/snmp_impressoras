@@ -19,13 +19,18 @@ ChartJS.register(
     Legend
 );
 
-const PrinterChart = ({location, model, ip, statuses }) => {
+const PrinterChart = ({location, model, ip, statuses}) => {
     const labels = statuses.map((s, index) => `#${index + 1}`);
+
+    const first_counter = statuses[0].page_printer;
+    const last_counter = statuses[statuses.length - 1].page_printer;
+    const count_printer = (last_counter - first_counter).toString();
+
     const chartData = {
         labels,
         datasets: [
             {
-                label: 'Páginas impressas',
+                label: `Páginas impressas: ${count_printer}`,
                 data: statuses.map((s) => s.page_printer),
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
