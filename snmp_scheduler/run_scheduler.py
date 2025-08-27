@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     # Executar a cada 10 minutos
     scheduler.add_job(collect_printer_data, 'interval', minutes=10)
-    # scheduler.add_job(collect_printer_data, 'interval', seconds=5)
+    # scheduler.add_job(collect_printer_data, 'interval', seconds=20)
 
     print("Scheduler iniciado. Coletando dados SNMP a cada 10 minutos.")
     scheduler.start()

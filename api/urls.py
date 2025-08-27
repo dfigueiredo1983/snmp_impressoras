@@ -5,12 +5,11 @@ from . import views
 app_name = 'api'
 
 router = DefaultRouter()
-router.register(r'printers', views.PrinterViewSet)
-router.register(r'printer-statuses', views.PrinterStatusViewSet)
-router.register(r'printers-detail', views.PrinterDetailViewSet, basename='printer-detail')
-
+router.register(r'printers', views.PrinterViewSet, basename='printers')
+# router.register(r'printersChart', views.PrinterChartViewSet, basename='printersChart')
 
 urlpatterns = [
     path('', views.impressoras_view, name='counter_view'),
-    path('', include(router.urls))
+    path('chart', views.PrinterChartView.as_view(), name='chart_view'),
+    path('', include(router.urls)),
 ]

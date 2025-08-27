@@ -6,7 +6,76 @@
     </head>
     <body>
         <h1>Status impressoras - Lexmark</h1>
+        <h2>Preto e Branco</h2>
+        <table border="1" 
+            style="border-collapse: collapse; text-align: center; width: 50%">
+            <thead>
+                <tr>
+                    <th>IP</th>
+                    <th>Status</th>
+                    <th>Páginas Impressas</th>
+                    <th>Toner (%)</th>
+                    <th>Unidade de Imagem</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for printer in printers %}
+                    {% if printer.ip != '10.44.0.114' %}
+                        <tr>
+                            <td>{{ printer.ip }}</td>
+                            <td>{{ printer.status }}</td>
+                            <td>{{ printer.page_printer }}</td>
+                            <td>{{ printer.toner_printer }}</td>
+                            <td>{{ printer.unit_printer }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table> 
 
+        <h2>Colorida</h2>
+        <table border="1" 
+            style="border-collapse: collapse; text-align: center; width: 50%">
+            <thead>
+                <tr>
+                    <th>IP</th>
+                    <th>Status</th>
+                    <th>Páginas Impressas</th>
+                    <th>Toner Cyan(%)</th>
+                    <th>Toner Magenta(%)</th>
+                    <th>Toner Yellow(%)</th>
+                    <th>Toner Black(%)</th>
+
+                    <th>Unidade de Imagem Cyan</th>
+                    <th>Unidade de Imagem Magenta</th>
+                    <th>Unidade de Imagem Yellow</th>
+                    <th>Unidade de Imagem Balck</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for printer in printers %}
+                    {% if printer.ip == '10.44.0.114' %}
+                        <tr>
+                            <td>{{ printer.ip }}</td>
+                            <td>{{ printer.status }}</td>
+                            <td>{{ printer.page_printer }}</td>
+                            <td>{{ printer.toner_printer_cyan }}</td>
+                            <td>{{ printer.toner_printer_magenta }}</td>
+                            <td>{{ printer.toner_printer_yellow }}</td>
+                            <td>{{ printer.toner_printer_black }}</td>
+
+                            <td>{{ printer.unit_printer_cyan }}</td>
+                            <td>{{ printer.unit_printer_magenta }}</td>
+                            <td>{{ printer.unit_printer_yellow }}</td>
+                            <td>{{ printer.unit_printer_black }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table> 
+
+
+        {% comment %} 
         <table>
             <thead>
                 <tr>
@@ -28,7 +97,8 @@
                 </tr>
                 {% endfor %}
             </tbody>
-        </table>
+        </table> 
+        {% endcomment %}
 
 
     </body>
