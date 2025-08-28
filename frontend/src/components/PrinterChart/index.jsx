@@ -46,11 +46,13 @@ const PrinterChart = ({location, model, ip, statuses}) => {
 
 // Gerar datasets dinamicamente
     const tonerDatasets = tonerColors.map((color) => ({
-        label: `Toner ${color} (%)`,
+        // label: `Toner ${color} ${statuses[statuses.length - 1][`avg_unit_${color}`]} (%)`,
+        // label: `Toner ${color} ${statuses.avg_toner_[color]} (%)`,
+        label: '',
         data: statuses.map((s) => s[`avg_toner_${color}`]),
         fill: false,
         borderColor: getColorForChart(color),
-        tension: 0.3,
+        // tension: 0.3,
         yAxisID: 'y1',
     }));
 
@@ -80,14 +82,14 @@ const PrinterChart = ({location, model, ip, statuses}) => {
                 type: 'linear',
                 display: true,
                 position: 'left',
-                title: { display: true, text: 'Páginas impressas' },
+                // title: { display: true, text: 'Páginas impressas' },
             },
             y1: {
                 type: 'linear',
                 display: true,
                 position: 'right',
                 grid: { drawOnChartArea: false },
-                title: { display: true, text: 'Nível de toner (%)' },
+                // title: { display: true, text: 'Nível de toner (%)' },
                 min: 0,
                 max: 100,
             },
@@ -99,16 +101,26 @@ const PrinterChart = ({location, model, ip, statuses}) => {
             <h3>
                 {location ?? 'Local desconhecido'} - {model ?? 'Modelo desconhecido'} ({ip})
             </h3>
-            <Line data={chartData} options={options} />
+            <div style={{ width: "450px", height:"250px", border:"1px solid red"}}>
+                <Line 
+                    data={chartData} 
+                    options={options} 
+                />
+            </div>
             <div key={ip}>
                 {isColorPrinter ? (
                     <>
-                        {tonerColors.map((color) => (
-                            <p key={color}>
-                                <strong>Unidade de imagem {color}: </strong>
-                                {statuses[statuses.length - 1][`avg_toner_${color}`]}(%)
-                            </p>
-                        ))}
+                        <div style={{display: 'flex', flexDirection: 'row'}}>
+                            <p><strong>Unidade de imagem</strong></p>
+                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                                {tonerColors.map((color) => (
+                                    <p key={color}>
+                                        <strong>{color}: </strong>
+                                        {statuses[statuses.length - 1][`avg_toner_${color}`]}(%)
+                                    </p>
+                                ))}
+                            </div>
+                        </div>
                     </>
                 ) : (
                     <p>
@@ -122,98 +134,3 @@ const PrinterChart = ({location, model, ip, statuses}) => {
 };
 
 export default PrinterChart;
-
-
-
-//     const chartData = {
-//         labels,
-//         datasets: [
-//             {
-//                 label: `Páginas impressas: ${count_printer}`,
-//                 data: statuses.map((s) => s.total_pages),
-//                 fill: false,
-//                 borderColor: 'rgb(75, 192, 192)',
-//                 tension: 0.3,
-//                 yAxisID: 'y',
-//             },
-//             {
-//                 label: `Nível de toner ${last_toner}(%)`,
-//                 data: statuses.map((s) => s.avg_toner),
-//                 fill: false,
-//                 borderColor: 'rgb(255, 99, 132)',
-//                 tension: 0.3,
-//                 yAxisID: 'y1',
-//             },
-//         ],
-//     };
-
-//     const options = {
-//         responsive: true,
-//         plugins: {
-//             legend: {
-//                 display: true,
-//             },
-//         },
-//         scales: {
-//             y: {
-//                 type: 'linear',
-//                 display: true,
-//                 position: 'left',
-//                 title: {
-//                     display: true,
-//                     text: 'Páginas impressas',
-//                 }
-//             },
-//             y1: {
-//                 type: 'linear',
-//                 display: true,
-//                 position: 'right',
-//                 grid: {
-//                     drawOnChartArea: false,
-//                 },
-//                 title: {
-//                     display: true,
-//                     text: 'Nível de toner (%)',
-//                 },
-//                 min: 0,
-//                 max: 100,
-//             },
-//         },
-//     };
-
-//     const lastImage = statuses?.[statuses.length - 1]?.avg_unit;
-
-
-//     return (
-//         <div>
-//             <h3>
-//                 { location ?? 'Local desconhecido' } - { model ?? 'Modelo desconhecido' } ({ip})
-//             </h3>
-//             <Line data={chartData} options={options} />
-
-//             {ip === '10.44.0.114' ? 
-//             (
-//                 <>
-//                     {['magenta', 'yellow', 'cyan', 'black'].map((color) => (
-//                     <p key={color}>
-//                         <strong>Unidade de imagem {color}: </strong>
-//                         {statuses[statuses.length - 1][`avg_toner_${color}`]}(%)
-//                     </p>
-//                     ))}
-//                 </>
-//             ) : (
-//                 <p>
-//                     <strong>Unidade de imagem: </strong>
-//                     {lastImage}(%)  
-//                 </p>
-//             )}
-
-
-//         </div>
-//     );
-// };
-
-// export default PrinterChart;
-
-
-
