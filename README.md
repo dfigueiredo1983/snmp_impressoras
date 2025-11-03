@@ -8,10 +8,21 @@ sudo apt install -y build-essential python3-dev libsnmp-dev snmp
 sudo apt install python3.XX-venv
 python3 -m venv venv
 
-
-
 # Rodar o pip
-pip insat
+pip install -r requirements.txt
+
+
+
+
+# Frontend
+
+# Atualizar o node 18 para 20
+
+
+sudo apt install npm
+npm install 
+
+
 
 
 
